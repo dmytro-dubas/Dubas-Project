@@ -1,0 +1,8 @@
+begin
+  R := 1;
+  while N > 0 do
+  begin
+    R := R * N * 2;
+    N := N - 1
+  end
+end

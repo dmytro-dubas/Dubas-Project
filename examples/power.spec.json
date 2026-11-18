@@ -1,0 +1,16 @@
+{
+  "inputs": ["X", "Y"],
+  "pre": "Y >= 0 and X >= 1",
+  "invariant": "R * pow(X, Y) == pow(X, Y0)",
+  "post": "R == pow(X, Y0)",
+  "variant": "Y",
+  "domains": {
+    "X": [2, 3],
+    "Y": [0, 4],
+    "Y0": [0, 4],
+    "R": [1, 81]
+  },
+  "ghosts": {
+    "Y0": "Y"
+  }
+}

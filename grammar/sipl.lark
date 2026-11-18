@@ -1,0 +1,36 @@
+start: "begin" stm "end" -> program
+
+?stm: atom_stm
+    | atom_stm ";" stm -> seq
+
+?atom_stm: NAME ":=" aexp                          -> assign
+         | "skip"                                  -> skip
+         | "if" bexp "then" atom_stm "else" atom_stm -> ite
+         | "while" bexp "do" atom_stm              -> loop
+         | "begin" stm "end"                       -> block
+
+?aexp: term
+     | aexp "+" term -> add
+     | aexp "-" term -> sub
+?term: factor
+     | term "*" factor -> mul
+?factor: NUMBER -> num
+       | NAME   -> var
+       | "(" aexp ")"
+
+?bexp: bterm
+     | bexp "or" bterm -> disj
+?bterm: bnot
+      | bterm "and" bnot -> conj
+?bnot: batom
+     | "not" bnot -> neg
+?batom: "true"  -> true
+      | "false" -> false
+      | aexp REL aexp -> rel
+      | "(" bexp ")"
+
+REL: />=|<=|>|<|=/
+NUMBER: /[0-9]+/
+NAME: /[A-Za-z_][A-Za-z_0-9]*/
+%import common.WS
+%ignore WS

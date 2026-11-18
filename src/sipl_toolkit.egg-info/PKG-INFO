@@ -1,0 +1,200 @@
+Metadata-Version: 2.4
+Name: sipl-toolkit
+Version: 1.0.1
+Summary: Інструменти для мови SIPL: парсер, семантичні терми, обчислення, перевірка коректності циклів
+Author: Дубас Дмитро Олександрович
+Keywords: sipl,formal-semantics,parser,verifier
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: lark>=1.1
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+
+# SIPL Language Toolkit
+
+Курсовий проєкт з дисципліни "Теорія програмування".
+Автор: Дубас Дмитро Олександрович, група ТК-32.
+
+Набір інструментів для мови SIPL: парсер з AST, візуалізація дерева виводу, побудова та обчислення семантичного терму, перевірка інваріанта циклу. Обрано трек "Формальна семантика".
+
+## Обрані завдання
+
+- CORE-02: Парсер та типізоване AST з позиціями SourceSpan, 1.5
+- VIS-01: Візуалізація дерева синтаксичного виводу, 1.5
+- SEM-01: Автоматична побудова семантичного терму, 2.0
+- SEM-02: Обчислення терму на стані, trace застосованих правил, 2.0
+- SEM-04: Асистент доведення коректності циклічних програм, 2.5
+- REL-02: GitHub Release, SemVer, CHANGELOG, 0.5
+
+Разом: 10.0
+
+## Структура
+
+```
+grammar/sipl.lark          граматика SIPL
+src/sipl/
+    span.py                SourceSpan
+    ast.py                 вузли AST
+    parser.py              парсер (Lark) і перетворення в AST
+    sipl.lark              копія граматики для пакета
+    visualization/tree.py  дерево виводу: text, json, dot, svg
+    semantics/
+        terms.py           семантичні терми
+        builder.py         AST -> терм
+        evaluator.py       обчислення терму, trace
+        verifier.py        умови VC1-VC4
+    cli.py                 командний рядок
+examples/                  приклади програм і специфікацій
+tests/                     тести pytest
+docs/                      SEMANTICS.md, VERIFICATION.md
+dist/                      wheel і sdist
+```
+
+## Встановлення
+
+Потрібен Python 3.10+.
+
+```
+python -m pip install -e ".[dev]"
+```
+
+Тести:
+
+```
+python -m pytest tests
+```
+
+Збірка пакета:
+
+```
+python -c "import os; from setuptools import build_meta as b; os.makedirs('dist', exist_ok=True); b.build_wheel('dist'); b.build_sdist('dist')"
+```
+
+Встановлення зі зібраного wheel:
+
+```
+python -m pip install dist/sipl_toolkit-1.0.1-py3-none-any.whl
+```
+
+## Використання
+
+### parse
+
+```
+python -m sipl.cli parse examples/variant5_double_fact.sipl
+```
+```
+[OK] Синтаксично коректно. Span програми: 1:1-8:4
+```
+
+Синтаксична помилка у `examples/invalid_syntax.sipl`:
+
+```
+python -m sipl.cli parse examples/invalid_syntax.sipl
+```
+```
+Синтаксична помилка (3:3): неочікуваний токен 'while'; очікувалось: ')', '*', '+', '-', ';', 'and', 'do', 'else', 'end', 'or', 'then', оператор відношення
+    while N > 0 do
+    ^
+```
+
+### tree, VIS-01
+
+Формати: `text`, `json`, `dot`, `svg`. Прапорець `--tokens` додає до дерева всі термінали: `begin`, `end`, `;`, `:=`.
+
+```
+python -m sipl.cli tree examples/variant5_double_fact.sipl --format text
+python -m sipl.cli tree examples/variant5_double_fact.sipl --tokens --format text
+python -m sipl.cli tree examples/variant5_double_fact.sipl --format json
+python -m sipl.cli tree examples/variant5_double_fact.sipl --format dot
+python -m sipl.cli tree examples/variant5_double_fact.sipl --format svg --out tree.svg
+```
+
+### term, SEM-01
+
+```
+python -m sipl.cli term examples/variant5_double_fact.sipl
+```
+```
+AS_R(1) * WH(S2(gr, N=>, 0), AS_R(S2(mult, S2(mult, R=>, N=>), 2)) * AS_N(S2(sub, N=>, 1)))
+```
+
+### eval, SEM-02
+
+```
+python -m sipl.cli eval examples/variant5_double_fact.sipl --state "N=2" --trace
+```
+```
+  1 AF_SEQ       AS_R(1) * WH(S2(gr, N=>, 0), AS_R(S2(mult, S2(mult, R=>, N=>), 2)) * AS_N(S2(sub, N=>, 1))) [N -> 2] => [N -> 2]
+  2 AF_AS        R := 1                                   [N -> 2] => [N -> 2, R -> 1]
+  3 AF_WH_TRUE   ітерація 0: S2(gr, N=>, 0) = true        [N -> 2, R -> 1] => [N -> 2, R -> 1]
+  4 AF_SEQ       AS_R(S2(mult, S2(mult, R=>, N=>), 2)) * AS_N(S2(sub, N=>, 1)) [N -> 2, R -> 1] => [N -> 2, R -> 1]
+  5 AF_AS        R := S2(mult, S2(mult, R=>, N=>), 2)     [N -> 2, R -> 1] => [N -> 2, R -> 4]
+  6 AF_AS        N := S2(sub, N=>, 1)                     [N -> 2, R -> 4] => [N -> 1, R -> 4]
+  7 AF_WH_TRUE   ітерація 1: S2(gr, N=>, 0) = true        [N -> 1, R -> 4] => [N -> 1, R -> 4]
+  8 AF_SEQ       AS_R(S2(mult, S2(mult, R=>, N=>), 2)) * AS_N(S2(sub, N=>, 1)) [N -> 1, R -> 4] => [N -> 1, R -> 4]
+  9 AF_AS        R := S2(mult, S2(mult, R=>, N=>), 2)     [N -> 1, R -> 4] => [N -> 1, R -> 8]
+ 10 AF_AS        N := S2(sub, N=>, 1)                     [N -> 1, R -> 8] => [N -> 0, R -> 8]
+ 11 AF_WH_FALSE  ітерація 2: S2(gr, N=>, 0) = false       [N -> 0, R -> 8] => [N -> 0, R -> 8]
+[N -> 0, R -> 8]
+```
+
+Для N = 2 результат R = 8, 11 кроків.
+
+Ліміт кроків:
+
+```
+python -m sipl.cli eval examples/infinite_loop.sipl --max-steps 50
+```
+```
+_|_ невизначено: перевищено ліміт 50 кроків, ймовірне зациклення
+```
+
+### verify, SEM-04
+
+Перевіряє умови VC1-VC4 для програми виду `init; while B do body; suffix` за специфікацією з `.spec.json`. Перевірка виконується перебором станів з областей `domains`, тому це перевірка на скінченній області, а не доведення для всіх значень. Опис у `docs/VERIFICATION.md`.
+
+```
+python -m sipl.cli verify examples/variant5_double_fact.sipl --spec examples/variant5_double_fact.spec.json
+```
+```
+[OK] VC1 база: P & init => Inv  перевірено станів: 4 
+      умова: (N > 0) і AS_R(1) => (R * dfact(2 * N) == dfact(2 * N0))
+[OK] VC2 крок: Inv & B => Inv після тіла  перевірено станів: 10 
+      умова: (R * dfact(2 * N) == dfact(2 * N0)) і (S2(gr, N=>, 0)) => (R * dfact(2 * N) == dfact(2 * N0)) після AS_R(S2(mult, S2(mult, R=>, N=>), 2)) * AS_N(S2(sub, N=>, 1))
+[OK] VC3 вихід: Inv & not B => Q  перевірено станів: 4 
+      умова: (R * dfact(2 * N) == dfact(2 * N0)) і не (S2(gr, N=>, 0)) => (R == dfact(2 * N0)) після ID
+[OK] VC4 завершення: V>0 і V спадає  перевірено станів: 10 
+      умова: (R * dfact(2 * N) == dfact(2 * N0)) і (S2(gr, N=>, 0)) => (N) > 0 і (N) строго спадає після AS_R(S2(mult, S2(mult, R=>, N=>), 2)) * AS_N(S2(sub, N=>, 1))
+```
+
+Неправильний інваріант `R * N! = N0!`:
+
+```
+python -m sipl.cli verify examples/variant5_double_fact.sipl --spec examples/variant5_incorrect.spec.json
+```
+```
+[OK] VC1 база: P & init => Inv  перевірено станів: 4 
+      умова: (N > 0) і AS_R(1) => (R * fact(N) == fact(N0))
+[FAIL] VC2 крок: Inv & B => Inv після тіла  перевірено станів: 10 
+      умова: (R * fact(N) == fact(N0)) і (S2(gr, N=>, 0)) => (R * fact(N) == fact(N0)) після AS_R(S2(mult, S2(mult, R=>, N=>), 2)) * AS_N(S2(sub, N=>, 1))
+      контрприклад: {'до': {'N': 1, 'N0': 1, 'R': 1}, 'після тіла': {'N': 0, 'N0': 1, 'R': 2}}
+[FAIL] VC3 вихід: Inv & not B => Q  перевірено станів: 4 
+      умова: (R * fact(N) == fact(N0)) і не (S2(gr, N=>, 0)) => (R == dfact(2 * N0)) після ID
+      контрприклад: {'стан на виході': {'N': 0, 'N0': 1, 'R': 1}, 'після суфікса': {'N': 0, 'N0': 1, 'R': 1}}
+[OK] VC4 завершення: V>0 і V спадає  перевірено станів: 10 
+      умова: (R * fact(N) == fact(N0)) і (S2(gr, N=>, 0)) => (N) > 0 і (N) строго спадає після AS_R(S2(mult, S2(mult, R=>, N=>), 2)) * AS_N(S2(sub, N=>, 1))
+```
+
+Якщо `variant` не заданий, VC4 пропускається.
+
+## Тести
+
+- `test_parser.py`: парсинг, пріоритети, синтаксичні помилки, збіг двох копій граматики
+- `test_grammar_loader.py`: завантаження граматики, складні вирази
+- `test_visualization.py`: text, json, dot, svg, екранування символів в svg
+- `test_semantics_builder.py`: побудова термів
+- `test_semantics_evaluator.py`: обчислення, trace, ліміт кроків
+- `test_verifier.py`: VC1-VC4, контрприклади, перевірка специфікації
+- `test_cli.py`: команди CLI
+- `test_integration.py`: програми від розбору до перевірки, помилки

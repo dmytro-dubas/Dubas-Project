@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 730" width="1180" height="730" style="background:#ffffff;font-family:sans-serif;">
+<defs>
+  <style>
+    .edge { stroke: #94a3b8; stroke-width: 1.5; }
+    .nt-box { fill: #eff6ff; stroke: #3b82f6; stroke-width: 1.5; rx: 5; }
+    .t-box { fill: #f0fdf4; stroke: #22c55e; stroke-width: 1.5; rx: 5; }
+    .node-text { font-size: 11px; font-weight: bold; fill: #1e293b; text-anchor: middle; }
+    .span-text { font-size: 8px; fill: #64748b; text-anchor: middle; }
+  </style>
+</defs>
+<line class="edge" x1="358.59375" y1="55" x2="358.59375" y2="95" />
+<line class="edge" x1="358.59375" y1="125" x2="135.0" y2="165" />
+<line class="edge" x1="135.0" y1="195" x2="90" y2="235" />
+<line class="edge" x1="135.0" y1="195" x2="180.0" y2="235" />
+<line class="edge" x1="180.0" y1="265" x2="180" y2="305" />
+<line class="edge" x1="358.59375" y1="125" x2="582.1875" y2="165" />
+<line class="edge" x1="582.1875" y1="195" x2="360.0" y2="235" />
+<line class="edge" x1="360.0" y1="265" x2="270.0" y2="305" />
+<line class="edge" x1="270.0" y1="335" x2="270" y2="375" />
+<line class="edge" x1="360.0" y1="265" x2="360" y2="305" />
+<line class="edge" x1="360.0" y1="265" x2="450.0" y2="305" />
+<line class="edge" x1="450.0" y1="335" x2="450" y2="375" />
+<line class="edge" x1="582.1875" y1="195" x2="804.375" y2="235" />
+<line class="edge" x1="804.375" y1="265" x2="804.375" y2="305" />
+<line class="edge" x1="804.375" y1="335" x2="641.25" y2="375" />
+<line class="edge" x1="641.25" y1="405" x2="540" y2="445" />
+<line class="edge" x1="641.25" y1="405" x2="742.5" y2="445" />
+<line class="edge" x1="742.5" y1="475" x2="675.0" y2="515" />
+<line class="edge" x1="675.0" y1="545" x2="630.0" y2="585" />
+<line class="edge" x1="630.0" y1="615" x2="630" y2="655" />
+<line class="edge" x1="675.0" y1="545" x2="720.0" y2="585" />
+<line class="edge" x1="720.0" y1="615" x2="720" y2="655" />
+<line class="edge" x1="742.5" y1="475" x2="810.0" y2="515" />
+<line class="edge" x1="810.0" y1="545" x2="810" y2="585" />
+<line class="edge" x1="804.375" y1="335" x2="967.5" y2="375" />
+<line class="edge" x1="967.5" y1="405" x2="900" y2="445" />
+<line class="edge" x1="967.5" y1="405" x2="1035.0" y2="445" />
+<line class="edge" x1="1035.0" y1="475" x2="990.0" y2="515" />
+<line class="edge" x1="990.0" y1="545" x2="990" y2="585" />
+<line class="edge" x1="1035.0" y1="475" x2="1080.0" y2="515" />
+<line class="edge" x1="1080.0" y1="545" x2="1080" y2="585" />
+<rect class="nt-box" x="323.59375" y="24.0" width="70" height="32" />
+<text class="node-text" x="358.59375" y="39">program</text>
+<text class="span-text" x="358.59375" y="51">[1:1-8:4]</text>
+<rect class="nt-box" x="323.59375" y="94.0" width="70" height="32" />
+<text class="node-text" x="358.59375" y="109">seq</text>
+<text class="span-text" x="358.59375" y="121">[2:3-7:6]</text>
+<rect class="nt-box" x="100.0" y="164.0" width="70" height="32" />
+<text class="node-text" x="135.0" y="179">assign</text>
+<text class="span-text" x="135.0" y="191">[2:3-2:9]</text>
+<rect class="t-box" x="55.0" y="234.0" width="70" height="32" />
+<text class="node-text" x="90" y="249">&#x27;R&#x27;</text>
+<text class="span-text" x="90" y="261">[2:3-2:4]</text>
+<rect class="nt-box" x="145.0" y="234.0" width="70" height="32" />
+<text class="node-text" x="180.0" y="249">num</text>
+<text class="span-text" x="180.0" y="261">[2:8-2:9]</text>
+<rect class="t-box" x="145.0" y="304.0" width="70" height="32" />
+<text class="node-text" x="180" y="319">&#x27;1&#x27;</text>
+<text class="span-text" x="180" y="331">[2:8-2:9]</text>
+<rect class="nt-box" x="547.1875" y="164.0" width="70" height="32" />
+<text class="node-text" x="582.1875" y="179">loop</text>
+<text class="span-text" x="582.1875" y="191">[3:3-7:6]</text>
+<rect class="nt-box" x="325.0" y="234.0" width="70" height="32" />
+<text class="node-text" x="360.0" y="249">rel</text>
+<text class="span-text" x="360.0" y="261">[3:9-3:14]</text>
+<rect class="nt-box" x="235.0" y="304.0" width="70" height="32" />
+<text class="node-text" x="270.0" y="319">var</text>
+<text class="span-text" x="270.0" y="331">[3:9-3:10]</text>
+<rect class="t-box" x="235.0" y="374.0" width="70" height="32" />
+<text class="node-text" x="270" y="389">&#x27;N&#x27;</text>
+<text class="span-text" x="270" y="401">[3:9-3:10]</text>
+<rect class="t-box" x="325.0" y="304.0" width="70" height="32" />
+<text class="node-text" x="360" y="319">&#x27;&gt;&#x27;</text>
+<text class="span-text" x="360" y="331">[3:11-3:12]</text>
+<rect class="nt-box" x="415.0" y="304.0" width="70" height="32" />
+<text class="node-text" x="450.0" y="319">num</text>
+<text class="span-text" x="450.0" y="331">[3:13-3:14]</text>
+<rect class="t-box" x="415.0" y="374.0" width="70" height="32" />
+<text class="node-text" x="450" y="389">&#x27;0&#x27;</text>
+<text class="span-text" x="450" y="401">[3:13-3:14]</text>
+<rect class="nt-box" x="769.375" y="234.0" width="70" height="32" />
+<text class="node-text" x="804.375" y="249">block</text>
+<text class="span-text" x="804.375" y="261">[4:3-7:6]</text>
+<rect class="nt-box" x="769.375" y="304.0" width="70" height="32" />
+<text class="node-text" x="804.375" y="319">seq</text>
+<text class="span-text" x="804.375" y="331">[5:5-6:15]</text>
+<rect class="nt-box" x="606.25" y="374.0" width="70" height="32" />
+<text class="node-text" x="641.25" y="389">assign</text>
+<text class="span-text" x="641.25" y="401">[5:5-5:19]</text>
+<rect class="t-box" x="505.0" y="444.0" width="70" height="32" />
+<text class="node-text" x="540" y="459">&#x27;R&#x27;</text>
+<text class="span-text" x="540" y="471">[5:5-5:6]</text>
+<rect class="nt-box" x="707.5" y="444.0" width="70" height="32" />
+<text class="node-text" x="742.5" y="459">mul</text>
+<text class="span-text" x="742.5" y="471">[5:10-5:19]</text>
+<rect class="nt-box" x="640.0" y="514.0" width="70" height="32" />
+<text class="node-text" x="675.0" y="529">mul</text>
+<text class="span-text" x="675.0" y="541">[5:10-5:15]</text>
+<rect class="nt-box" x="595.0" y="584.0" width="70" height="32" />
+<text class="node-text" x="630.0" y="599">var</text>
+<text class="span-text" x="630.0" y="611">[5:10-5:11]</text>
+<rect class="t-box" x="595.0" y="654.0" width="70" height="32" />
+<text class="node-text" x="630" y="669">&#x27;R&#x27;</text>
+<text class="span-text" x="630" y="681">[5:10-5:11]</text>
+<rect class="nt-box" x="685.0" y="584.0" width="70" height="32" />
+<text class="node-text" x="720.0" y="599">var</text>
+<text class="span-text" x="720.0" y="611">[5:14-5:15]</text>
+<rect class="t-box" x="685.0" y="654.0" width="70" height="32" />
+<text class="node-text" x="720" y="669">&#x27;N&#x27;</text>
+<text class="span-text" x="720" y="681">[5:14-5:15]</text>
+<rect class="nt-box" x="775.0" y="514.0" width="70" height="32" />
+<text class="node-text" x="810.0" y="529">num</text>
+<text class="span-text" x="810.0" y="541">[5:18-5:19]</text>
+<rect class="t-box" x="775.0" y="584.0" width="70" height="32" />
+<text class="node-text" x="810" y="599">&#x27;2&#x27;</text>
+<text class="span-text" x="810" y="611">[5:18-5:19]</text>
+<rect class="nt-box" x="932.5" y="374.0" width="70" height="32" />
+<text class="node-text" x="967.5" y="389">assign</text>
+<text class="span-text" x="967.5" y="401">[6:5-6:15]</text>
+<rect class="t-box" x="865.0" y="444.0" width="70" height="32" />
+<text class="node-text" x="900" y="459">&#x27;N&#x27;</text>
+<text class="span-text" x="900" y="471">[6:5-6:6]</text>
+<rect class="nt-box" x="1000.0" y="444.0" width="70" height="32" />
+<text class="node-text" x="1035.0" y="459">sub</text>
+<text class="span-text" x="1035.0" y="471">[6:10-6:15]</text>
+<rect class="nt-box" x="955.0" y="514.0" width="70" height="32" />
+<text class="node-text" x="990.0" y="529">var</text>
+<text class="span-text" x="990.0" y="541">[6:10-6:11]</text>
+<rect class="t-box" x="955.0" y="584.0" width="70" height="32" />
+<text class="node-text" x="990" y="599">&#x27;N&#x27;</text>
+<text class="span-text" x="990" y="611">[6:10-6:11]</text>
+<rect class="nt-box" x="1045.0" y="514.0" width="70" height="32" />
+<text class="node-text" x="1080.0" y="529">num</text>
+<text class="span-text" x="1080.0" y="541">[6:14-6:15]</text>
+<rect class="t-box" x="1045.0" y="584.0" width="70" height="32" />
+<text class="node-text" x="1080" y="599">&#x27;1&#x27;</text>
+<text class="span-text" x="1080" y="611">[6:14-6:15]</text>
+</svg>

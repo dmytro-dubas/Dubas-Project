@@ -1,0 +1,15 @@
+{
+  "inputs": ["N"],
+  "pre": "N >= 0",
+  "invariant": "R * fact(N) == fact(N0)",
+  "post": "R == fact(N0)",
+  "variant": "N",
+  "domains": {
+    "N": [0, 5],
+    "N0": [0, 5],
+    "R": [1, 120]
+  },
+  "ghosts": {
+    "N0": "N"
+  }
+}
